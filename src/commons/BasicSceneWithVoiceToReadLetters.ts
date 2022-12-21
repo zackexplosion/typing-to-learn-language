@@ -15,7 +15,11 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
     this.currentLevel = name
   }
 
-  preload() {
+  setup() {
+
+  }
+
+  create () {
     for (let i = 0; i < RussianAlphabets.length; i++) {
       const _ = RussianAlphabets[i];
       this.letterSounds[_] = this.sound.add(_);
@@ -25,5 +29,28 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
     this.keyboard = new KeyBoard(this);
 
     this.add.text(5, 5, this.currentLevel, {color: '#333'})
+
+    if(this.sound.locked)
+    {
+        var text = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2, 'Tap to start');
+        text.x -= Math.round(text.width/2);
+        text.y -= Math.round(text.height/2);
+
+        this.sound.once('unlocked', function (soundManager)
+        {
+            text.visible = false;
+          console.log('sound unlock')
+            // setup.call(this);
+
+        }, this);
+    }
+    else
+    {
+        // setup.call(this);
+    }
   }
+
+  // update( ) {
+
+  // }
 }

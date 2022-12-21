@@ -11,5 +11,8 @@ export default {
     // resolution: window.devicePixelRatio,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: 1 / window.devicePixelRatio // Set the zoom to the inverse of the devicePixelRatio
-  }
+  },
+  // audio: {
+  //   disableWebAudio: true
+  // }
 };

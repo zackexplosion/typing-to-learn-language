@@ -7,6 +7,7 @@ export default class FreeTyping extends BasicSceneWithKeyboardAndVoiceToReadLett
   }
 
   create() {
+    super.create()
     // Setup the keyboard event
     this.keyboard.addPointerupHandler((key: string) => {
       this.letterSounds[key].play();

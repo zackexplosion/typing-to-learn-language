@@ -9,10 +9,6 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
     super("Level-102");
   }
 
-  preload() {
-    // must call!
-    super.preload();
-  }
 
   // The main game logic handle here
   handleKeyPress(key: string) {
@@ -36,6 +32,8 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
   }
 
   create() {
+    super.create();
+
     // shuffle the questions
     this.questions = new Phaser.Math.RandomDataGenerator().shuffle(
       this.questions

@@ -90,6 +90,7 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
           })
           .on('pointerup', () => {
             this.pointerupHandler(__)
+            key.setStyle({color: KEY_COLOR})
           })
           .on('pointerout', () => {
             key.setStyle({color: KEY_COLOR})

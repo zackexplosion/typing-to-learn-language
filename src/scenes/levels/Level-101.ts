@@ -35,6 +35,8 @@ export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetter
   }
 
   create() {
+    super.create();
+
     // Create the main question text object
     this.questionObject = this.add
       .text(
