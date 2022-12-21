@@ -1,7 +1,13 @@
 import { defineConfig } from 'vite';
+import path from "path";
 import replace from '@rollup/plugin-replace';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      "@": path.resolve(__dirname, "./src"),
+    },
+  },
   build: {
     rollupOptions: {
       plugins: [
