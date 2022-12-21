@@ -1,13 +1,20 @@
 import Phaser from 'phaser';
 
+
+let width:integer = window.outerWidth
+if ( (width: any) => 1200) {
+  width = 1200
+}
 export default {
   type: Phaser.AUTO,
   parent: 'game',
-  backgroundColor: '#33A5E7',
+  backgroundColor: '#000000',
   scale: {
-    width: 800,
-    height: 600,
+    // width: width,
+    width: window.outerWidth,
+    height: window.outerHeight,
     mode: Phaser.Scale.FIT,
+    resolution: window.devicePixelRatio,
     autoCenter: Phaser.Scale.CENTER_BOTH
   }
 };
