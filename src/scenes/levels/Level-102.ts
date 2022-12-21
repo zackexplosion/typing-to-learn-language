@@ -1,5 +1,4 @@
-import BasicSceneWithKeyboardAndVoiceToReadLetters from '@/commons/BasicSceneWithVoiceToReadLetters'
-
+import BasicSceneWithKeyboardAndVoiceToReadLetters from "@/commons/BasicSceneWithVoiceToReadLetters";
 
 export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetters {
   questions = this.RussianAlphabets;
@@ -29,7 +28,7 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
     // Reset the index when not letters left
     if (this.currentQuestionIndex === this.questions.length) {
       this.currentQuestionIndex = 0;
-      return
+      return;
     }
 
     // Setup next question
@@ -38,7 +37,9 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
 
   create() {
     // shuffle the questions
-    this.questions = new Phaser.Math.RandomDataGenerator().shuffle(this.questions)
+    this.questions = new Phaser.Math.RandomDataGenerator().shuffle(
+      this.questions
+    );
 
     // Create the main question text object
     this.questionObject = this.add
@@ -46,13 +47,13 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
         this.cameras.main.width / 2,
         100,
         this.questions[this.currentQuestionIndex],
-        {font:`25em PT Mono`, color: "green" }
+        { font: `25em PT Mono`, color: "green" }
       )
       .setOrigin(0.5);
 
     // Setup the keyboard event
-    this.keyboard.addKeydownHandler( (key:string) => {
-      this.handleKeyPress(key)
-    })
+    this.keyboard.addKeydownHandler((key: string) => {
+      this.handleKeyPress(key);
+    });
   }
 }

@@ -50,16 +50,17 @@ export default class LoadingScene extends Phaser.Scene {
     });
     assetText.setOrigin(0.5, 0.5);
 
-    this.load.on("progress", function (value:number) {
+    this.load.on("progress", function (value: number) {
       percentText.setText((value * 100).toFixed(0) + "%");
       progressBar.clear();
       progressBar.fillStyle(0x008000, 1);
       progressBar.fillRect(progressBarStartX + 10, 280, 300 * value, 30);
     });
 
-    this.load.on("fileprogress", function (file:any) {
+    this.load.on("fileprogress", function (file: any) {
       assetText.setText("Loading asset: " + file.key);
     });
+
     this.load.on("complete", function () {
       progressBar.destroy();
       progressBox.destroy();
@@ -68,13 +69,14 @@ export default class LoadingScene extends Phaser.Scene {
       assetText.destroy();
     });
 
-
     // Load the voice of letters
     for (let i = 0; i < russianAlphabets.length; i++) {
       const _ = russianAlphabets[i];
       this.load.audio(_, `assets/sounds/letters/gen-${i + 6}.mp3`);
     }
 
+    // Pre loading the font, won' display on screen
+    this.add.text(0,0,'я', {font: '1px PT Mono'})
   }
 
   create() {

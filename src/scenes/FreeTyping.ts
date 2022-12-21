@@ -1,4 +1,4 @@
-import BasicSceneWithKeyboardAndVoiceToReadLetters from '@/commons/BasicSceneWithVoiceToReadLetters'
+import BasicSceneWithKeyboardAndVoiceToReadLetters from "@/commons/BasicSceneWithVoiceToReadLetters";
 import KeyBoard from "@/commons/Keyboard";
 
 export default class FreeTyping extends BasicSceneWithKeyboardAndVoiceToReadLetters {
@@ -8,8 +8,8 @@ export default class FreeTyping extends BasicSceneWithKeyboardAndVoiceToReadLett
 
   create() {
     // Setup the keyboard event
-    this.keyboard.addKeydownHandler( (key:string) => {
+    this.keyboard.addKeydownHandler((key: string) => {
       this.letterSounds[key].play();
-    })
+    });
   }
 }
