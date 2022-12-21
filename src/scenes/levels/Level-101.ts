@@ -35,16 +35,11 @@ export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetter
   }
 
   create() {
-    for (let i = 0; i < this.questions.length; i++) {
-      const _ = this.questions[i];
-      this.letterSounds[_] = this.sound.add(_);
-    }
-
     // Create the main question text object
     this.questionObject = this.add
       .text(
         this.cameras.main.width / 2,
-        100,
+        150,
         this.questions[this.currentQuestionIndex],
         { font: `25em PT Mono`, color: "green" }
       )

@@ -9,9 +9,10 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
   protected RussianAlphabets = RussianAlphabets
   protected letterSounds: LetterSounds = {}
   protected keyboard!: KeyBoard
-
+  protected currentLevel: string = ''
   constructor(name: string) {
     super(name);
+    this.currentLevel = name
   }
 
   preload() {
@@ -22,5 +23,7 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
 
     // Create the keyboard
     this.keyboard = new KeyBoard(this);
+
+    this.add.text(5, 5, this.currentLevel, {color: '#333'})
   }
 }

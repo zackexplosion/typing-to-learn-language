@@ -45,7 +45,7 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
     this.questionObject = this.add
       .text(
         this.cameras.main.width / 2,
-        100,
+        150,
         this.questions[this.currentQuestionIndex],
         { font: `25em PT Mono`, color: "green" }
       )

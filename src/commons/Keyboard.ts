@@ -5,7 +5,7 @@ type KeyBoardParams = {
 }
 
 // The constant variables
-const KEYS_PER_ROW = 12
+const KEYS_PER_ROW = 11
 const FONT_SIZE_OFFSET = 5
 
 // The colors
@@ -14,9 +14,12 @@ const KEY_COLOR_DOWN = 'gray'
 
 // Layout the keyboard with the array
 const KEYS_LAYOUT = [
-  'йцукенгшщзхъ'.split(''),
-  'фывапролджэё'.split(''),
-  '.ячсмитьбю..'.split(''),
+  // 'йцукенгшщзхъ'.split(''),
+  // 'фывапролджэё'.split(''),
+  // '.ячсмитьбю..'.split(''),
+  'йцукенгшщзх'.split(''),
+  'фывапролджэ'.split(''),
+  'ячсмитьбюъё'.split(''),
 ]
 
 // TODO
