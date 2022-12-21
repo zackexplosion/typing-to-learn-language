@@ -52,7 +52,7 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
       .setOrigin(0.5);
 
     // Setup the keyboard event
-    this.keyboard.addKeydownHandler((key: string) => {
+    this.keyboard.addPointerupHandler((key: string) => {
       this.handleKeyPress(key);
     });
   }

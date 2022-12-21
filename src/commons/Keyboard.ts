@@ -31,7 +31,7 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
 
   // To storage the key instance, for the color change
   private keyboardInstanceKeys: any = []
-  private keydownHandler: Function = () => {};
+  private pointerupHandler: Function = () => {};
 
   constructor(
     scene: Phaser.Scene,
@@ -86,10 +86,12 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
           .setOrigin(0.5)
           .setInteractive({ useHandCursor: true })
           .on('pointerdown', () => {
-            this.keydownHandler(__)
             key.setStyle({color: KEY_COLOR_DOWN})
           })
           .on('pointerup', () => {
+            this.pointerupHandler(__)
+          })
+          .on('pointerout', () => {
             key.setStyle({color: KEY_COLOR})
           })
 
@@ -132,7 +134,7 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
       // logger += `'${event.code}' : '${event.key}',`
 
       try {
-        this.keydownHandler(letter)
+        this.pointerupHandler(letter)
       } catch (error) {
         console.error(error)
       }
@@ -146,7 +148,7 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
     }));
   }
 
-  public addKeydownHandler (handler: Function) {
-    this.keydownHandler = handler
+  public addPointerupHandler (handler: Function) {
+    this.pointerupHandler = handler
   }
 }
