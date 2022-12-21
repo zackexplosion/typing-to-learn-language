@@ -1,14 +1,8 @@
-import Phaser from "phaser";
-import KeyBoard from "@/commons/Keyboard";
-import RussianAlphabets from "@/commons/russian-alphabets";
+import BasicSceneWithKeyboardAndVoiceToReadLetters from '@/commons/BasicSceneWithVoiceToReadLetters'
 
-type LetterSounds = {
-  [key: string]: Phaser.Sound.BaseSound;
-};
 
-export default class Level2 extends Phaser.Scene {
-  questions = RussianAlphabets;
-  letterSounds: LetterSounds = {};
+export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetters {
+  questions = this.RussianAlphabets;
   currentQuestionIndex = 0;
   questionObject: Phaser.GameObjects.Text | undefined;
 
@@ -16,7 +10,10 @@ export default class Level2 extends Phaser.Scene {
     super("Level-102");
   }
 
-  preload() {}
+  preload() {
+    // must call!
+    super.preload();
+  }
 
   // The main game logic handle here
   handleKeyPress(key: string) {
@@ -29,13 +26,9 @@ export default class Level2 extends Phaser.Scene {
     // Increase the question index
     this.currentQuestionIndex++;
 
-    // TODO
-    // Maybe we can just go next level when player finish current level?
-
     // Reset the index when not letters left
     if (this.currentQuestionIndex === this.questions.length) {
-      // this.currentQuestionIndex = 0;
-      this.scene.start("Level-101");
+      this.currentQuestionIndex = 0;
       return
     }
 
@@ -44,11 +37,6 @@ export default class Level2 extends Phaser.Scene {
   }
 
   create() {
-    for (let i = 0; i < this.questions.length; i++) {
-      const _ = this.questions[i];
-      this.letterSounds[_] = this.sound.add(_);
-    }
-
     this.questions = new Phaser.Math.RandomDataGenerator().shuffle(this.questions)
 
     // Create the main question text object
@@ -61,9 +49,9 @@ export default class Level2 extends Phaser.Scene {
       )
       .setOrigin(0.5);
 
-    // Create the keyboard
-    const keyboardContainer = new KeyBoard(this, {
-      handleKeyPress: this.handleKeyPress.bind(this),
-    });
+    // Setup the keyboard event
+    this.keyboard.addKeydownHandler( key => {
+      this.handleKeyPress(key)
+    })
   }
 }

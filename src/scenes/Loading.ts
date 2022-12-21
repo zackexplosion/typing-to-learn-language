@@ -1,4 +1,4 @@
-import russianAlphabets from "../commons/russian-alphabets";
+import russianAlphabets from "@/commons/russian-alphabets";
 
 export default class LoadingScene extends Phaser.Scene {
   constructor() {
@@ -68,15 +68,18 @@ export default class LoadingScene extends Phaser.Scene {
       assetText.destroy();
     });
 
+
+    // Load the voice of letters
     for (let i = 0; i < russianAlphabets.length; i++) {
       const _ = russianAlphabets[i];
       this.load.audio(_, `assets/sounds/letters/gen-${i + 6}.mp3`);
     }
 
-    this.add.text(0, 0, "ф", {font:"1px PT Mono", fill:"#FFFFFF"});
   }
 
   create() {
     this.scene.start("Level-101");
+
+    // this.scene.start("FreeTyping");
   }
 }

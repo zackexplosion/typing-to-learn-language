@@ -1,34 +1,59 @@
 import Phaser from 'phaser';
 
-const KEYS_PER_ROW = 12
-const FONT_SIZE_OFFSET = 5
-
 type KeyBoardParams = {
   handleKeyPress?: Function
 }
 
+// The constant variables
+const KEYS_PER_ROW = 12
+const FONT_SIZE_OFFSET = 5
+
+// The colors
+const KEY_COLOR = 'green'
+const KEY_COLOR_DOWN = 'gray'
+
+// Layout the keyboard with the array
+const KEYS_LAYOUT = [
+  'йцукенгшщзхъ'.split(''),
+  'фывапролджэё'.split(''),
+  '.ячсмитьбю..'.split(''),
+]
+
+// TODO
+// Maybe need another hash for uppercase too?
+const KEYCODE_TO_RUSSIAN_LETTER_MAP = {81 : 'й',87 : 'ц',69 : 'у',82 : 'к',84 : 'е',89 : 'н',85 : 'г',73 : 'ш',79 : 'щ',80 : 'з',219 : 'х',221 : 'ъ',222 : 'э',186 : 'ж',76 : 'д',75 : 'л',74 : 'о',72 : 'р',71 : 'п',70 : 'а',68 : 'в',83 : 'ы',65 : 'ф',90 : 'я',88 : 'ч',67 : 'с',86 : 'м',66 : 'и',78 : 'т',77 : 'ь',188 : 'б',190 : 'ю',192 : 'ё'}
+
 export default class KeyBoard extends Phaser.GameObjects.Container {
+
+  // To storage the key instance, for the color change
+  private keyboardInstanceKeys = []
+  private keydownHandler: Function = () => {};
+
   constructor(
     scene: Phaser.Scene,
-    params: KeyBoardParams
+    params?: KeyBoardParams
   ) {
     super(scene)
-    const keys = [
-      'йцукенгшщзхъ'.split(''),
-      'фывапролджэё'.split(''),
-      '.ячсмитьбю..'.split(''),
-    ]
 
-    const baseWidth = scene.cameras.main.width
-    const baseHeight = scene.cameras.main.height
-    const fontSize = (scene.cameras.main.width / KEYS_PER_ROW) - FONT_SIZE_OFFSET
-    const buttonSize = baseWidth / KEYS_PER_ROW
+    // Will use for moving the keyboard to the bottom of screen.
     var keyboardHeight = 0
 
-    keys.forEach( (_, row) => {
+    // Just some alias
+    const baseWidth = scene.cameras.main.width
+    const baseHeight = scene.cameras.main.height
+
+    // Letters size in the keyboard, count by the screen width and some constant variables in top.
+    const fontSize = (scene.cameras.main.width / KEYS_PER_ROW) - FONT_SIZE_OFFSET
+
+    // The virtual button size, won't show out for now.
+    const buttonSize = baseWidth / KEYS_PER_ROW
+
+    // Loop the keys layout
+    KEYS_LAYOUT.forEach( (_, row) => {
       _.forEach((__, col) => {
 
         // TODO
+        // Style
         // Maybe create some button frame like real keyboard?
 
         // const button = scene.add.graphics();
@@ -41,12 +66,10 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
         // button.strokeRect(_x, _y, buttonSize, buttonSize);
         // this.add(button)
 
-        // let x = col * singleButtonWidth + spaceBetweenKeys
-        // let y = (row * singleButtonHeight) + scene.cameras.main.height - 120
 
+        // The axis of keys
         let x = col * buttonSize + (buttonSize / 2)
         let y = (row * buttonSize) + (buttonSize / 2)
-
 
         // keyboardHeight will be the last y axis
         keyboardHeight = y
@@ -55,18 +78,18 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
         if(__ === '.') return
 
         const key =
-          scene.add.text(x, y, __, {font:`${fontSize}px PT Mono`, color: 'green'})
+          scene.add.text(x, y, __, {font:`${fontSize}px PT Mono`, color: KEY_COLOR})
           .setOrigin(0.5)
           .setInteractive({ useHandCursor: true })
           .on('pointerdown', () => {
-            if(typeof params.handleKeyPress === 'function') {
-              params.handleKeyPress(__)
-            }
-            key.setStyle({color: 'gray'})
+            this.keydownHandler(__)
+            key.setStyle({color: KEY_COLOR_DOWN})
           })
           .on('pointerup', () => {
-            key.setStyle({color: 'green'})
+            key.setStyle({color: KEY_COLOR})
           })
+
+        this.keyboardInstanceKeys[__] = key
 
         this.add(key)
       })
@@ -78,11 +101,48 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
     // Set the container to the scene
     this.scene.add.existing(this)
 
-    // Only for physic keyboard
-    scene.input.keyboard.on('keydown', function (event:any) {
-      if(typeof params.handleKeyPress === 'function') {
-        params.handleKeyPress(event.key)
+
+    // **************************
+    // *
+    // Following code Only for physic keyboards
+    // *
+    // **************************
+    // *
+    // To make this work with any input method.
+    // We need key code map to russian-pc keyboard layout.
+    // *
+
+    const handleKeyEvent = (event, cb) => {
+      const letter = KEYCODE_TO_RUSSIAN_LETTER_MAP[event.keyCode]
+      const keyInstance = this.keyboardInstanceKeys[letter]
+
+      if(keyInstance && letter) {
+        cb(letter, keyInstance)
       }
-    });
+    }
+
+    // var logger = '' // Only use for create the keymap in the top lol
+
+    scene.input.keyboard.on('keydown',  event => handleKeyEvent(event, (letter, key) => {
+
+      // logger += `${event.keyCode} : '${event.key}',`
+
+      try {
+        this.keydownHandler(letter)
+      } catch (error) {
+        console.error(error)
+      }
+      key.setStyle({color: KEY_COLOR_DOWN})
+
+      // console.log(logger)
+    }));
+
+    scene.input.keyboard.on('keyup',  event => handleKeyEvent(event, (letter, key) => {
+      key.setStyle({color: KEY_COLOR})
+    }));
+  }
+
+  public addKeydownHandler (handler: Function) {
+    this.keydownHandler = handler
   }
 }

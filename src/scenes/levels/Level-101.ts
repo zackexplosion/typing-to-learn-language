@@ -1,22 +1,14 @@
-import Phaser from "phaser";
 import KeyBoard from "@/commons/Keyboard";
-import RussianAlphabets from "@/commons/russian-alphabets";
+import BasicSceneWithKeyboardAndVoiceToReadLetters from '@/commons/BasicSceneWithVoiceToReadLetters'
 
-type LetterSounds = {
-  [key: string]: Phaser.Sound.BaseSound;
-};
-
-export default class Level1 extends Phaser.Scene {
-  questions = RussianAlphabets;
-  letterSounds: LetterSounds = {};
-  currentQuestionIndex = 0;
-  questionObject: Phaser.GameObjects.Text | undefined;
+export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetters {
+  private questions = this.RussianAlphabets
+  private currentQuestionIndex = 0;
+  private questionObject: Phaser.GameObjects.Text | undefined;
 
   constructor() {
     super("Level-101");
   }
-
-  preload() {}
 
   // The main game logic handle here
   handleKeyPress(key: string) {
@@ -57,9 +49,9 @@ export default class Level1 extends Phaser.Scene {
       )
       .setOrigin(0.5);
 
-    // Create the keyboard
-    const keyboardContainer = new KeyBoard(this, {
-      handleKeyPress: this.handleKeyPress.bind(this),
-    });
+    // Setup the keyboard event
+    this.keyboard.addKeydownHandler( key => {
+      this.handleKeyPress(key)
+    })
   }
 }
