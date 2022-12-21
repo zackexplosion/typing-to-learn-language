@@ -23,7 +23,7 @@ export default class LoadingScene extends Phaser.Scene {
       text: "Loading...",
       style: {
         font: "20px monospace",
-        fill: "#ffffff",
+        color: "green",
       },
     });
     loadingText.setOrigin(0.5, 0.5);
@@ -34,7 +34,7 @@ export default class LoadingScene extends Phaser.Scene {
       text: "0%",
       style: {
         font: "18px monospace",
-        fill: "#ffffff",
+        color: "#008000",
       },
     });
     percentText.setOrigin(0.5, 0.5);
@@ -45,15 +45,15 @@ export default class LoadingScene extends Phaser.Scene {
       text: "",
       style: {
         font: "18px monospace",
-        fill: "#ffffff",
+        color: "#008000",
       },
     });
     assetText.setOrigin(0.5, 0.5);
 
-    this.load.on("progress", function (value:any) {
-      percentText.setText(parseInt(value * 100) + "%");
+    this.load.on("progress", function (value:number) {
+      percentText.setText((value * 100).toFixed(0) + "%");
       progressBar.clear();
-      progressBar.fillStyle(0xffffff, 1);
+      progressBar.fillStyle(0x008000, 1);
       progressBar.fillRect(progressBarStartX + 10, 280, 300 * value, 30);
     });
 
@@ -79,7 +79,5 @@ export default class LoadingScene extends Phaser.Scene {
 
   create() {
     this.scene.start("Level-101");
-
-    // this.scene.start("FreeTyping");
   }
 }

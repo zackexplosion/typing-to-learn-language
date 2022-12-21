@@ -37,6 +37,7 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
   }
 
   create() {
+    // shuffle the questions
     this.questions = new Phaser.Math.RandomDataGenerator().shuffle(this.questions)
 
     // Create the main question text object
@@ -50,7 +51,7 @@ export default class Level102 extends BasicSceneWithKeyboardAndVoiceToReadLetter
       .setOrigin(0.5);
 
     // Setup the keyboard event
-    this.keyboard.addKeydownHandler( key => {
+    this.keyboard.addKeydownHandler( (key:string) => {
       this.handleKeyPress(key)
     })
   }

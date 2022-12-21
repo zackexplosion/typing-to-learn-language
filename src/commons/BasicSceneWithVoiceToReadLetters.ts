@@ -8,9 +8,9 @@ type LetterSounds = {
 export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
   protected RussianAlphabets = RussianAlphabets
   protected letterSounds: LetterSounds = {}
-  protected keyboard: KeyBoard
+  protected keyboard!: KeyBoard
 
-  constructor(name) {
+  constructor(name: string) {
     super(name);
   }
 

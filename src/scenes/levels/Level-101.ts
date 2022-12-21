@@ -1,4 +1,3 @@
-import KeyBoard from "@/commons/Keyboard";
 import BasicSceneWithKeyboardAndVoiceToReadLetters from '@/commons/BasicSceneWithVoiceToReadLetters'
 
 export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetters {
@@ -26,7 +25,9 @@ export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetter
 
     // Reset the index when not letters left
     if (this.currentQuestionIndex === this.questions.length) {
-      this.currentQuestionIndex = 0;
+      this.scene.start('Level-102')
+      return
+      // this.currentQuestionIndex = 0;
     }
 
     // Setup next question
@@ -50,7 +51,7 @@ export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetter
       .setOrigin(0.5);
 
     // Setup the keyboard event
-    this.keyboard.addKeydownHandler( key => {
+    this.keyboard.addKeydownHandler( (key:string) => {
       this.handleKeyPress(key)
     })
   }
