@@ -28,26 +28,43 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
     // Create the keyboard
     this.keyboard = new KeyBoard(this);
 
-    this.add.text(5, 5, this.currentLevel, {color: '#333'})
+    // this.add.text(5, 5, this.currentLevel, {color: '#333'})
 
-    if(this.sound.locked)
-    {
-        var text = this.add.text(this.cameras.main.width / 2, this.cameras.main.height / 2, 'Tap to start');
-        text.x -= Math.round(text.width/2);
-        text.y -= Math.round(text.height/2);
+    // TODO
+    // Find a better way to do this
 
-        this.sound.once('unlocked', function (soundManager)
-        {
-            text.visible = false;
-          console.log('sound unlock')
-            // setup.call(this);
-
-        }, this);
+    if(document.querySelector('#scene-selector')){
+      document.querySelector('#scene-selector')?.remove()
     }
-    else
-    {
-        // setup.call(this);
-    }
+
+    const select = document.createElement('select')
+
+    select.id = 'scene-selector'
+
+    const scenes = [
+      'FreeTyping',
+      'Level-101',
+      'Level-102',
+    ]
+
+    scenes.forEach(_ => {
+      var option = document.createElement('option')
+      option.value = _
+      option.innerText = _
+
+      if(this.currentLevel === _) {
+        option.selected = true
+      }
+
+
+      select.appendChild(option)
+    })
+
+    select.addEventListener('change', (e:any) => {
+      this.scene.start(e.target.value)
+    })
+
+    document.body.appendChild(select)
   }
 
   // update( ) {

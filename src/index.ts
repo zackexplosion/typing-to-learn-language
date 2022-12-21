@@ -20,25 +20,3 @@ const game = new Phaser.Game(
   })
 );
 
-
-// TODO
-// Make a scene switch
-// const select = document.createElement('select')
-
-// select.id = 'scene-selector'
-
-// scenes.forEach(_ => {
-//   var option = document.createElement('option')
-//   option.value = _.name
-//   option.innerText = _.name
-
-//   select.appendChild(option)
-// })
-
-// select.addEventListener('change', e => {
-//   // console.log(e.target.value)
-//   game.scene.start('FreeTyping')
-//   // debugger
-// })
-
-// document.body.appendChild(select)
