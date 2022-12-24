@@ -100,7 +100,6 @@ export default class LoadingScene extends Phaser.Scene {
         x: center_x, y: center_y,
         speed: 0,
         lifespan: 2000,
-        delay: 2000,
         quantity: 48,
         frequency: 2000,
         delay: 500,
