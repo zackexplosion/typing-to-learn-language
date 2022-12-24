@@ -1,12 +1,13 @@
 import Phaser from "phaser";
-import RussianAlphabets from "@/commons/russian-alphabets";
+import russianAlphabets from "@/commons/russian-alphabets";
 import KeyBoard from "./Keyboard";
+import { scenesKeys } from '@/commons/available-levels'
 type LetterSounds = {
   [key: string]: Phaser.Sound.BaseSound;
 };
 
 export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
-  protected RussianAlphabets = RussianAlphabets
+  protected russianAlphabets = russianAlphabets
   protected letterSounds: LetterSounds = {}
   protected keyboard!: KeyBoard
   protected currentLevel: string = ''
@@ -20,8 +21,14 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
   }
 
   create () {
-    for (let i = 0; i < RussianAlphabets.length; i++) {
-      const _ = RussianAlphabets[i];
+
+    // Set current level browser's local storage, use in Loading.ts. Makes easier to development lol
+    if(localStorage) {
+      localStorage.currentLevel = this.currentLevel
+    }
+
+    for (let i = 0; i < russianAlphabets.length; i++) {
+      const _ = russianAlphabets[i];
       this.letterSounds[_] = this.sound.add(_);
     }
 
@@ -41,11 +48,7 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
 
     select.id = 'scene-selector'
 
-    const scenes = [
-      'FreeTyping',
-      'Level-101',
-      'Level-102',
-    ]
+    const scenes = scenesKeys
 
     scenes.forEach(_ => {
       var option = document.createElement('option')
@@ -56,12 +59,12 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
         option.selected = true
       }
 
-
       select.appendChild(option)
     })
 
     select.addEventListener('change', (e:any) => {
-      this.scene.start(e.target.value)
+      const levelName = e.target.value
+      this.scene.start(levelName)
     })
 
     document.body.appendChild(select)

@@ -1,15 +1,16 @@
-import BasicSceneWithKeyboardAndVoiceToReadLetters from "@/commons/BasicSceneWithVoiceToReadLetters";
-import KeyBoard from "@/commons/Keyboard";
+import BasicGameScene from '@/components/BasicGameScene';
 
-export default class FreeTyping extends BasicSceneWithKeyboardAndVoiceToReadLetters {
+export default class FreeTyping extends BasicGameScene {
   constructor() {
     super("FreeTyping");
   }
 
   create() {
     super.create()
+
     // Setup the keyboard event
     this.keyboard.addPointerupHandler((key: string) => {
+      this.questionObject?.setText(key)
       this.letterSounds[key].play();
     });
   }

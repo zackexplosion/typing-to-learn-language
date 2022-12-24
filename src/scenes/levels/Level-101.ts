@@ -1,9 +1,8 @@
-import BasicSceneWithKeyboardAndVoiceToReadLetters from "@/commons/BasicSceneWithVoiceToReadLetters";
+import BasicScene from "@/components/BasicGameScene";
 
-export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetters {
-  private questions = this.RussianAlphabets;
+export default class Level101 extends BasicScene {
+  private questions = this.russianAlphabets;
   private currentQuestionIndex = 0;
-  private questionObject: Phaser.GameObjects.Text | undefined;
 
   constructor() {
     super("Level-101");
@@ -37,15 +36,8 @@ export default class Level101 extends BasicSceneWithKeyboardAndVoiceToReadLetter
   create() {
     super.create();
 
-    // Create the main question text object
-    this.questionObject = this.add
-      .text(
-        this.cameras.main.width / 2,
-        150,
-        this.questions[this.currentQuestionIndex],
-        { font: `25em PT Mono`, color: "green" }
-      )
-      .setOrigin(0.5);
+    // Initial questionObject
+    this.questionObject?.setText(this.questions[this.currentQuestionIndex]);
 
     // Setup the keyboard event
     this.keyboard.addPointerupHandler((key: string) => {

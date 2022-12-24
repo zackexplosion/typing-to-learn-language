@@ -80,6 +80,10 @@ export default class LoadingScene extends Phaser.Scene {
   }
 
   create() {
-    this.scene.start("Level-101");
+    if(localStorage && localStorage.currentLevel) {
+      this.scene.start(localStorage.currentLevel);
+    } else {
+      this.scene.start("Level-101");
+    }
   }
 }
