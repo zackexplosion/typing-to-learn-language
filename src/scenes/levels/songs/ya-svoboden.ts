@@ -51,81 +51,95 @@ const LYRICS = `
 Я свободен!...
 Я свободен!...
 Я свободен!...
-`
+`;
 
 export default class SongsYaSvoboden extends BasicScene {
   private currentQuestionIndex = 0;
   private currentQuestionWordIndex = 0;
-  private questions: Array<string> = []
+  private questions: Array<string> = [];
   constructor() {
     super("Songs-YaSvoboden");
 
     // Remove symbols, line break ...etc non letters
-    this.questions = LYRICS
-      .replace(/(\.|\!|\,|\-)/g, "")
+    this.questions = LYRICS.replace(/(\.|\!|\,|\-)/g, "")
       // Remove more than one space.
-      .replace(/\ +/g, ' ')
-      .split('\n')
-      .filter(_ => _.trim().length > 0)
-      .map(_ => _.trim().toLocaleLowerCase())
+      .replace(/\ +/g, " ")
+      .split("\n")
+      .filter((_) => _.trim().length > 0)
+      .map((_) => _.trim().toLocaleLowerCase());
 
     // console.log(this.questions)
   }
 
   // The main game logic handle here
   handleKeyPress(key: string) {
-
     this.letterSounds[key].play();
 
     // If player click wrong button, doing nothing
-    const currentQuestionWord = this.questions[this.currentQuestionIndex]
-    let q = currentQuestionWord[this.currentQuestionWordIndex].toLocaleLowerCase()
-    let ans = ''
+    const currentQuestionWord = this.questions[this.currentQuestionIndex];
+    let q =
+      currentQuestionWord[this.currentQuestionWordIndex].toLocaleLowerCase();
+    let ans = "";
 
     // skip space
-    if(q === ' ') {
-      this.currentQuestionWordIndex++
-      q = currentQuestionWord[this.currentQuestionWordIndex].toLocaleLowerCase()
+    if (q === " ") {
+      this.currentQuestionWordIndex++;
+      q =
+        currentQuestionWord[this.currentQuestionWordIndex].toLocaleLowerCase();
     }
 
     if (key === q) {
-
       for (let index = 0; index < currentQuestionWord.length; index++) {
-
-        if(index <= this.currentQuestionWordIndex ) {
-          ans += currentQuestionWord[index]
+        if (index <= this.currentQuestionWordIndex) {
+          ans += currentQuestionWord[index];
         } else {
-          if(currentQuestionWord[index] === ' ') {
-            ans += ' '
+          if (currentQuestionWord[index] === " ") {
+            ans += " ";
           } else {
-            ans += '\t'
+            ans += "\t";
           }
         }
       }
 
-      this.answerObject?.setText(ans)
-      this.currentQuestionWordIndex++
+      this.answerObject?.setText(ans);
+      this.currentQuestionWordIndex++;
     }
 
-    if( this.currentQuestionWordIndex === currentQuestionWord.length) {
-      this.currentQuestionWordIndex = 0
-      this.currentQuestionIndex++
+    if (this.currentQuestionWordIndex === currentQuestionWord.length) {
+      this.currentQuestionWordIndex = 0;
+      this.currentQuestionIndex++;
       this.questionObject?.setText(this.questions[this.currentQuestionIndex]);
-      this.answerObject?.setText('')
+      this.answerObject?.setText("");
     }
+  }
+
+  preload() {
+    super.preload();
+    var url =
+      "https://raw.githubusercontent.com/rexrainbow/phaser3-rex-notes/master/dist/rexyoutubeplayerplugin.min.js";
+    this.load.plugin("rexyoutubeplayerplugin", url, true);
   }
 
   create() {
     super.create();
+    var baseWidth = this.cameras.main.width;
+    var baseHeight = this.cameras.main.height;
+    var youtubePlayer = this.add
+      .rexYoutubePlayer(0, 0, baseWidth, 200, {
+        videoId: "QXDRPtufEbA",
+      })
+      .on("ready", function () {
+        youtubePlayer.setPosition(baseWidth / 2, baseHeight - 250);
+        youtubePlayer.setPlaybackTime(50)
+        youtubePlayer.setVolume(0.5);
+        youtubePlayer.play();
+      });
 
-    this.answerObject?.setScale(0.2)
-
+    this.answerObject?.setScale(0.2);
 
     // Initial questionObject
-    this.questionObject?.setScale(0.2)
+    this.questionObject?.setScale(0.2);
     this.questionObject?.setText(this.questions[this.currentQuestionIndex]);
-
-
 
     // Setup the keyboard event
     this.keyboard.addPointerupHandler((key: string) => {

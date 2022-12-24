@@ -12,6 +12,9 @@ export default {
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: 1 / window.devicePixelRatio // Set the zoom to the inverse of the devicePixelRatio
   },
+  dom: {
+    createContainer: true
+  },
   // audio: {
   //   disableWebAudio: true
   // }

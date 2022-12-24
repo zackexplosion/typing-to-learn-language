@@ -16,7 +16,7 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
     this.currentLevel = name
   }
 
-  setup() {
+  preload() {
 
   }
 
