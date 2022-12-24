@@ -113,26 +113,6 @@ export default class SongsYaSvoboden extends BasicScene {
       this.questionObject?.setText(this.questions[this.currentQuestionIndex]);
       this.answerObject?.setText('')
     }
-
-    console.log('ans', ans)
-
-
-
-    // // Increase the question index
-    // this.currentQuestionIndex++;
-
-    // // TODO
-    // // Maybe we can just go next level when player finish current level?
-
-    // // Reset the index when not letters left
-    // if (this.currentQuestionIndex === this.questions.length) {
-    //   // this.scene.start("Level-102");
-    //   return;
-    //   // this.currentQuestionIndex = 0;
-    // }
-
-    // // Setup next question
-    // this.questionObject?.setText(this.questions[this.currentQuestionIndex]);
   }
 
   create() {
