@@ -5,9 +5,9 @@ export default {
   parent: 'game',
   backgroundColor: '#000000',
   scale: {
-    width: window.outerWidth,
-    height: window.outerHeight,
-    mode: Phaser.Scale.FIT,
+    // width: window.outerWidth,
+    // height: window.outerHeight,
+    mode: Phaser.Scale.RESIZE,
     // resolution: window.devicePixelRatio,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: 1 / window.devicePixelRatio // Set the zoom to the inverse of the devicePixelRatio
