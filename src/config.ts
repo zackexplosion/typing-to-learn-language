@@ -7,7 +7,7 @@ export default {
   scale: {
     width: window.outerWidth,
     // height: window.outerHeight,
-    mode: Phaser.Scale.WIDTH_CONTROLS_HEIGHT,
+    mode: Phaser.Scale.RESIZE,
     // resolution: window.devicePixelRatio,
     autoCenter: Phaser.Scale.CENTER_BOTH,
     zoom: 1 / window.devicePixelRatio // Set the zoom to the inverse of the devicePixelRatio
