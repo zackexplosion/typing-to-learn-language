@@ -86,7 +86,7 @@ export default class LoadingScene extends Phaser.Scene {
     var center_x = this.cameras.main.width / 2
     var center_y = this.cameras.main.height / 2
 
-    this.add.text(center_x,0 ,'Happy New Year!', {font: '3em PT Mono ', color: 'gray'}).setOrigin(0.5, 0 )
+    this.add.text(center_x, 45 ,'Happy New Year!', {font: '3em ', color: 'gray'}).setOrigin(0.5, 0 )
 
     var tree = new Phaser.Geom.Triangle.BuildEquilateral(0, -250, 350);
     var trunk = new Phaser.Geom.Rectangle(0, 0, 80, 140);

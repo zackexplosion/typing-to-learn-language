@@ -122,16 +122,25 @@ export default class SongsYaSvoboden extends BasicScene {
 
   create() {
     super.create();
+
+
     var baseWidth = this.cameras.main.width;
     var baseHeight = this.cameras.main.height;
+
+
+    const ansY = baseWidth / 1.33 + 130
+    this.questionObject?.setY(ansY)
+    this.answerObject?.setY(ansY)
+
+    console.log('baseWidth', baseWidth)
     var youtubePlayer = this.add
-      .rexYoutubePlayer(0, 0, baseWidth, 200, {
+      .rexYoutubePlayer(0, 0, baseWidth, baseWidth / 1.33, {
         videoId: "QXDRPtufEbA",
       })
       .on("ready", function () {
-        youtubePlayer.setPosition(baseWidth / 2, baseHeight - 250);
-        youtubePlayer.setPlaybackTime(50)
-        youtubePlayer.setVolume(0.5);
+        youtubePlayer.setPosition(baseWidth / 2, 145);
+        youtubePlayer.setPlaybackTime(55)
+        // youtubePlayer.setVolume(0.5);
         youtubePlayer.play();
       });
 
