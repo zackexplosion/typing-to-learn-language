@@ -1,11 +1,18 @@
 import Phaser from 'phaser';
 
+
+var width = window.innerWidth
+if( width > 768) {
+  width = window.innerHeight * 9 / 16
+}
+// console.log('wdith', width)
 export default {
   type: Phaser.AUTO,
   parent: 'game',
   backgroundColor: '#000000',
   scale: {
-    width: window.innerWidth,
+    // width: window.innerWidth,
+    width,
     height: window.innerHeight,
     mode: Phaser.Scale.FIT,
     resolution: window.devicePixelRatio,

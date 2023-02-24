@@ -219,6 +219,7 @@ export default class SongsYaSvoboden extends GameScene {
   private questions: Array<string> = [];
   private playerBulletGroup: Phaser.Physics.Arcade.Group
   private currentLyric;
+  private music;
   constructor() {
     super("Songs-YaSvoboden");
 
@@ -272,29 +273,41 @@ export default class SongsYaSvoboden extends GameScene {
     })
 
     var music = this.sound.add('the-song');
-    music.setLoop(true);
-    music.play({
-      seek: 10,
-      // seek: 100
-    });
 
-    var gui = new window.dat.GUI();
 
-    var sm = gui.addFolder("Music Debug Panel");
-    sm.add(music, 'seek', 0, music.duration).step(0.01).listen();
-    // sm.add(this.currentLyric, 'y', 0, this.currentLyric.y).listen();
-    // sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
-    // sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
-    // sm.add(catAstroPhi, 'loop').listen();
-    // sm.add(catAstroPhi, 'play');
-    // sm.add(catAstroPhi, 'pause');
-    // sm.add(catAstroPhi, 'resume');
-    // sm.add(catAstroPhi, 'stop');
-    sm.open();
 
-    this.createLyric()
 
-    this.physics.add.collider(this.currentLyric, this.playerBulletGroup)
+
+    const text =
+    this.add
+      .text(this.cameras.main.width / 2, this.cameras.main.height / 2, "Click to start")
+      .setInteractive({ useHandCursor: true })
+      .on('pointerdown', () =>{
+        music.play({
+          seek: 14,
+          // seek: 100
+        });
+        var gui = new window.dat.GUI();
+        var sm = gui.addFolder("Music Debug Panel");
+        sm.add(music, 'seek', 0, music.duration).step(0.01).listen();
+        // sm.add(this.currentLyric, 'y', 0, this.currentLyric.y).listen();
+        // sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
+        // sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
+        // sm.add(catAstroPhi, 'loop').listen();
+        // sm.add(catAstroPhi, 'play');
+        // sm.add(catAstroPhi, 'pause');
+        // sm.add(catAstroPhi, 'resume');
+        // sm.add(catAstroPhi, 'stop');
+        sm.open();
+
+        this.music = music
+
+        this.createLyric()
+        this.physics.add.collider(this.currentLyric, this.playerBulletGroup)
+        text.destroy()
+      })
+      .setOrigin(0.5)
+
 
     emitter.on('playerTypingCorrect', (tx:number, ty: number) => {
       const x =  this.cameras.main.width / 2
@@ -314,6 +327,35 @@ export default class SongsYaSvoboden extends GameScene {
     this.keyboard.addPointerupHandler((key: string) => {
       this.handleKeyPress(key);
     });
+  }
+
+  update() {
+
+    if(!this.music) return
+    const seek = this.music.seek
+    // console.log(seek)
+    if(seek > 195) {
+      var music = this.sound.add('the-song');
+      music.play({
+        seek: 10,
+        // seek: 100
+      })
+
+      this.music = music;
+      var gui = new window.dat.GUI();
+      var sm = gui.addFolder("Music Debug Panel");
+      sm.add(music, 'seek', 0, music.duration).step(0.01).listen();
+      // sm.add(this.currentLyric, 'y', 0, this.currentLyric.y).listen();
+      // sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
+      // sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
+      // sm.add(catAstroPhi, 'loop').listen();
+      // sm.add(catAstroPhi, 'play');
+      // sm.add(catAstroPhi, 'pause');
+      // sm.add(catAstroPhi, 'resume');
+      // sm.add(catAstroPhi, 'stop');
+      sm.open();
+    }
+
   }
 
 }
