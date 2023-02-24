@@ -16,6 +16,21 @@ export default {
   dom: {
     createContainer: true
   },
+  physics: {
+    default: 'arcade',
+    arcade: {
+      // debug: new Boolean(process.env.PHYSIC_DEBUG) || false,
+      // debug: true,
+      // gravity: { y: 10 }
+      // debug: true,
+      // debugShowBody: true,
+      // debugShowStaticBody: true,
+      // debugShowVelocity: true,
+      // debugVelocityColor: 0xffff00,
+      // debugBodyColor: 0x0000ff,
+      // debugStaticBodyColor: 0xffffff,
+    },
+  },
   // audio: {
   //   disableWebAudio: true
   // }

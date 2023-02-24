@@ -6,6 +6,13 @@ export default class LoadingScene extends Phaser.Scene {
   }
 
   preload() {
+
+    // TODO, Add debug config and check if loading datgui
+    var url =
+      "https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.7.7/dat.gui.min.js";
+    this.load.plugin("datgui", url, true);
+
+
     // Remove the css loader
     document.querySelector("#loading")!.remove();
 

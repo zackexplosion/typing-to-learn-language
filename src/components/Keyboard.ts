@@ -32,7 +32,7 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
   // To storage the key instance, for the color change
   private keyboardInstanceKeys: any = []
   private pointerupHandler: Function = () => {};
-
+  public keyboardAxisY = 0
   constructor(
     scene: Phaser.Scene,
     params?: KeyBoardParams
@@ -101,9 +101,11 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
         this.add(key)
       })
     })
-
+    const keyboardY = baseHeight - keyboardHeight - fontSize
+    // console.log('keyboardY', keyboardY)
+    this.keyboardAxisY = keyboardY
     // Move the keyboard container to screen bottom
-    this.setY(baseHeight - keyboardHeight - fontSize)
+    this.setY(keyboardY)
 
     // Set the container to the scene
     this.scene.add.existing(this)
