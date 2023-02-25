@@ -278,11 +278,11 @@ export default class SongsYaSvoboden extends GameScene {
 
     const text =
     this.add
-      .text(this.cameras.main.width / 2, this.cameras.main.height / 2, "Click to start")
+      .text(this.cameras.main.width / 2, this.cameras.main.height / 2, "Click here to start", {font: '3em ', color: 'gray'})
       .setInteractive({ useHandCursor: true })
       .on('pointerdown', () =>{
         music.play({
-          seek: 14,
+          seek: 13.5,
           // seek: 100
         });
         // var gui = new window.dat.GUI();
