@@ -260,7 +260,7 @@ export default class SongsYaSvoboden extends GameScene {
       'assets/sounds/music/ya-svoboden.mp3'
     ]);
     this.load.audio('player-fire', [
-      'assets/sounds/player-fire.ogg'
+      'assets/sounds/player-fire.mp3'
     ]);
   }
 
