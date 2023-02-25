@@ -1,5 +1,6 @@
 import russianAlphabets from "@/commons/russian-alphabets";
 import LoadingHelper from "@/commons/loading-helper";
+import { scenesKeys } from '@/commons/available-levels'
 export default class LoadingScene extends Phaser.Scene {
   constructor() {
     super({ key: "LoadingScene" });
@@ -13,8 +14,11 @@ export default class LoadingScene extends Phaser.Scene {
     this.load.plugin("datgui", url, true);
 
 
-    // Remove the css loader
-    document.querySelector("#loading")!.remove();
+    // Remove the css loader, if it's exists
+    const cssLoader = document.querySelector("#loading")
+    if(cssLoader) {
+      cssLoader.remove();
+    }
 
     new LoadingHelper(this)
 
@@ -105,11 +109,22 @@ export default class LoadingScene extends Phaser.Scene {
 
 
     setTimeout(() => {
-      if(localStorage && localStorage.currentLevel) {
-        this.scene.start(localStorage.currentLevel);
-      } else {
-        this.scene.start("Level-101");
+      const levelFromUrl = new URLSearchParams(window.location.search).get('level')
+      var sceneToStart = "Level-101"
+
+      if(levelFromUrl && scenesKeys.includes(levelFromUrl)) {
+        sceneToStart = levelFromUrl
+      } else if(localStorage && localStorage.currentLevel) {
+        sceneToStart = localStorage.currentLevel
       }
-    }, 2000)
+      // else {
+      //   sceneToStart = "Level-101"
+      // }
+
+      console.log('sceneToStart', sceneToStart)
+
+      this.scene.start(sceneToStart);
+
+    }, 1000)
   }
 }

@@ -256,8 +256,11 @@ export default class SongsYaSvoboden extends GameScene {
 
     new LoadingHelper(this)
     this.load.image('playerBullet', 'assets/bullet.png')
-    this.load.audio('the-song', [
+    this.load.audio('ya-svoboden.mp3', [
       'assets/sounds/music/ya-svoboden.mp3'
+    ]);
+    this.load.audio('player-fire', [
+      'assets/sounds/player-fire.ogg'
     ]);
   }
 
@@ -269,7 +272,9 @@ export default class SongsYaSvoboden extends GameScene {
       },
     })
 
-    var music = this.sound.add('the-song');
+    var music = this.sound.add('ya-svoboden.mp3');
+
+    var playerFireSFX = this.sound.add('player-fire')
 
     const text =
     this.add
@@ -280,18 +285,18 @@ export default class SongsYaSvoboden extends GameScene {
           seek: 14,
           // seek: 100
         });
-        var gui = new window.dat.GUI();
-        var sm = gui.addFolder("Music Debug Panel");
-        sm.add(music, 'seek', 0, music.duration).step(0.01).listen();
-        // sm.add(this.currentLyric, 'y', 0, this.currentLyric.y).listen();
-        // sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
-        // sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
-        // sm.add(catAstroPhi, 'loop').listen();
-        // sm.add(catAstroPhi, 'play');
-        // sm.add(catAstroPhi, 'pause');
-        // sm.add(catAstroPhi, 'resume');
-        // sm.add(catAstroPhi, 'stop');
-        sm.open();
+        // var gui = new window.dat.GUI();
+        // var sm = gui.addFolder("Music Debug Panel");
+        // sm.add(music, 'seek', 0, music.duration).step(0.01).listen();
+        // // sm.add(this.currentLyric, 'y', 0, this.currentLyric.y).listen();
+        // // sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
+        // // sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
+        // // sm.add(catAstroPhi, 'loop').listen();
+        // // sm.add(catAstroPhi, 'play');
+        // // sm.add(catAstroPhi, 'pause');
+        // // sm.add(catAstroPhi, 'resume');
+        // // sm.add(catAstroPhi, 'stop');
+        // sm.open();
 
         this.music = music
 
@@ -305,6 +310,7 @@ export default class SongsYaSvoboden extends GameScene {
     emitter.on('playerTypingCorrect', (tx:number, ty: number) => {
       const x =  this.cameras.main.width / 2
       const y = this.cameras.main.height - 100
+      playerFireSFX.play()
       new PlayerBullet(this, x, y, tx, ty)
     })
 
@@ -328,7 +334,7 @@ export default class SongsYaSvoboden extends GameScene {
     // const seek = this.music.seek
     // // console.log(seek)
     // if(seek > 195) {
-    //   var music = this.sound.add('the-song');
+    //   var music = this.sound.add('ya-svoboden.mp3');
     //   music.play({
     //     seek: 10,
     //     // seek: 100

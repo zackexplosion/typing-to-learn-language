@@ -64,6 +64,8 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
 
     select.addEventListener('change', (e:any) => {
       const levelName = e.target.value
+      // stop all sound before scene changed
+      this.sound.stopAll()
       this.scene.start(levelName)
     })
 
