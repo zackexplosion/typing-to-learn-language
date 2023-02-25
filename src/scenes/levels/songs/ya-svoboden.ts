@@ -1,6 +1,6 @@
 // import { getDirFromAngle } from '@/utils'
 import GameScene from "@/components/GameScene";
-
+import LoadingHelper from "@/commons/loading-helper";
 //  Create our own EventEmitter instance
 var emitter = new Phaser.Events.EventEmitter();
 
@@ -103,16 +103,12 @@ class Lyrics extends Phaser.GameObjects.Container {
   private hittenCount = 0;
   constructor(
     scene: Phaser.Scene,
-    x: number,
-    y: number,
     text: string
   ) {
-    super(scene, x, y);
+    super(scene);
 
     this.text = text
-    // this.emitLyricCompleted =emitLyricCompleted
-
-    const fontSize = "12em";
+    const fontSize = `${(scene.cameras.main.width / text.length).toFixed(0)}px`
 
     const lyric = scene.add
       .text(
@@ -164,8 +160,11 @@ class Lyrics extends Phaser.GameObjects.Container {
     var selfWithPhysics = scene.physics.add.existing(this)
     selfWithPhysics.body.setVelocityY(this.speed)
     selfWithPhysics.body.setCollideWorldBounds(true)
-    selfWithPhysics.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, -500, scene.cameras.main.width, 1500));
-
+    // console.log('scene.keyboard.keyboardAxisY', scene.keyboard.keyboardAxisY)
+    const offsetBoundsY = -300
+    const lyricBoundsY = scene.cameras.main.height
+    console.log('lyricBoundsY', lyricBoundsY)
+    selfWithPhysics.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, offsetBoundsY, scene.cameras.main.width, lyricBoundsY))
     this.scene.add.existing(this)
   }
 
@@ -249,14 +248,13 @@ export default class SongsYaSvoboden extends GameScene {
   }
 
   createLyric() {
-    var baseWidth = this.cameras.main.width;
-    var baseHeight = this.cameras.main.height;
-    const ansY = 0
-    this.currentLyric = new Lyrics(this, 400, ansY, this.questions[this.currentQuestionIndex])
+    this.currentLyric = new Lyrics(this, this.questions[this.currentQuestionIndex])
   }
 
   preload() {
     super.preload();
+
+    new LoadingHelper(this)
     this.load.image('playerBullet', 'assets/bullet.png')
     this.load.audio('the-song', [
       'assets/sounds/music/ya-svoboden.mp3'
@@ -268,15 +266,10 @@ export default class SongsYaSvoboden extends GameScene {
 
     this.playerBulletGroup = this.physics.add.group({
       removeCallback: (g) => {
-        // console.log(g, 'removed')
       },
     })
 
     var music = this.sound.add('the-song');
-
-
-
-
 
     const text =
     this.add
@@ -331,30 +324,30 @@ export default class SongsYaSvoboden extends GameScene {
 
   update() {
 
-    if(!this.music) return
-    const seek = this.music.seek
-    // console.log(seek)
-    if(seek > 195) {
-      var music = this.sound.add('the-song');
-      music.play({
-        seek: 10,
-        // seek: 100
-      })
+    // if(!this.music) return
+    // const seek = this.music.seek
+    // // console.log(seek)
+    // if(seek > 195) {
+    //   var music = this.sound.add('the-song');
+    //   music.play({
+    //     seek: 10,
+    //     // seek: 100
+    //   })
 
-      this.music = music;
-      var gui = new window.dat.GUI();
-      var sm = gui.addFolder("Music Debug Panel");
-      sm.add(music, 'seek', 0, music.duration).step(0.01).listen();
-      // sm.add(this.currentLyric, 'y', 0, this.currentLyric.y).listen();
-      // sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
-      // sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
-      // sm.add(catAstroPhi, 'loop').listen();
-      // sm.add(catAstroPhi, 'play');
-      // sm.add(catAstroPhi, 'pause');
-      // sm.add(catAstroPhi, 'resume');
-      // sm.add(catAstroPhi, 'stop');
-      sm.open();
-    }
+    //   this.music = music;
+    //   var gui = new window.dat.GUI();
+    //   var sm = gui.addFolder("Music Debug Panel");
+    //   sm.add(music, 'seek', 0, music.duration).step(0.01).listen();
+    //   // sm.add(this.currentLyric, 'y', 0, this.currentLyric.y).listen();
+    //   // sm.add(catAstroPhi, 'rate', 0.5, 2).listen();
+    //   // sm.add(catAstroPhi, 'detune', -1200, 1200).step(50).listen();
+    //   // sm.add(catAstroPhi, 'loop').listen();
+    //   // sm.add(catAstroPhi, 'play');
+    //   // sm.add(catAstroPhi, 'pause');
+    //   // sm.add(catAstroPhi, 'resume');
+    //   // sm.add(catAstroPhi, 'stop');
+    //   sm.open();
+    // }
 
   }
 
