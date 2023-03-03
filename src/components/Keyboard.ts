@@ -2,7 +2,7 @@ import Phaser from 'phaser';
 
 // The constant variables
 const KEYS_PER_ROW = 11
-const FONT_SIZE_OFFSET = 5
+const FONT_SIZE_OFFSET = 1
 
 // The colors
 const KEY_COLOR = 'green'
