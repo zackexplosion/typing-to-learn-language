@@ -56,7 +56,6 @@ export default class KeyBoard_Basic extends Phaser.GameObjects.Container {
 
     // The virtual button size, won't show out for now.
     const buttonSize = baseWidth / KEYS_PER_ROW
-
     // Loop the keys layout
     keysLayout.forEach( (_, row) => {
       _.forEach((__, col) => {
@@ -91,10 +90,10 @@ export default class KeyBoard_Basic extends Phaser.GameObjects.Container {
           .setOrigin(0.5)
           .setInteractive({ useHandCursor: true })
           .on('pointerdown', () => {
+            this.pointerupHandler(__)
             key.setStyle({color: KEY_COLOR_DOWN})
           })
           .on('pointerup', () => {
-            this.pointerupHandler(__)
             key.setStyle({color: KEY_COLOR})
           })
           .on('pointerout', () => {
