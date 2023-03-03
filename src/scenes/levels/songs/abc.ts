@@ -4,13 +4,14 @@ const LYRICS = `
 ${russianAlphabets.join('\n')}
 ${russianAlphabets.join('\n').toUpperCase()}
 `;
-
+const KEY = 'Songs-ABC'
 export default class SongsABC extends BasicScene {
+  static KEY = KEY
   private currentQuestionIndex = 0;
   private currentQuestionWordIndex = 0;
   private questions: Array<string> = [];
   constructor() {
-    super("Songs-ABC");
+    super(KEY);
 
     // Remove symbols, line break ...etc non letters
     this.questions = LYRICS.replace(/(\.|\!|\,|\-)/g, "")

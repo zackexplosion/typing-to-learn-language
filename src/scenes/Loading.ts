@@ -29,7 +29,8 @@ export default class LoadingScene extends Phaser.Scene {
     }
 
     this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
-    // Pre loading the font, won' display on screen
+
+    // Pre loading the font, won't display on screen
     this.add.text(0,0,'я', {font: '1px PT Mono'})
 
   }
@@ -109,17 +110,15 @@ export default class LoadingScene extends Phaser.Scene {
 
 
     setTimeout(() => {
-      const levelFromUrl = new URLSearchParams(window.location.search).get('level')
       var sceneToStart = "Level-101"
+
+      const levelFromUrl = new URLSearchParams(window.location.search).get('level')
 
       if(levelFromUrl && scenesKeys.includes(levelFromUrl)) {
         sceneToStart = levelFromUrl
       } else if(localStorage && localStorage.currentLevel) {
         sceneToStart = localStorage.currentLevel
       }
-      // else {
-      //   sceneToStart = "Level-101"
-      // }
 
       console.log('sceneToStart', sceneToStart)
 

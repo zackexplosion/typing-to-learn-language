@@ -1,12 +1,10 @@
 import Phaser from "phaser";
 import russianAlphabets from "@/commons/russian-alphabets";
-import KeyBoard from "./Keyboard";
+import KeyBoard from "./KeyBoard";
 import { scenesKeys } from '@/commons/available-levels'
-type LetterSounds = {
-  [key: string]: Phaser.Sound.BaseSound;
-};
 
-export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
+
+export default class GameScene extends Phaser.Scene {
   protected russianAlphabets = russianAlphabets
   protected letterSounds: LetterSounds = {}
   protected keyboard!: KeyBoard
@@ -33,7 +31,7 @@ export default class BasicSceneWithVoiceToReadLetters extends Phaser.Scene {
     }
 
     // Create the keyboard
-    this.keyboard = new KeyBoard(this);
+    this.keyboard = new KeyBoard(this, 'Russian');
 
     // this.add.text(5, 5, this.currentLevel, {color: '#333'})
 

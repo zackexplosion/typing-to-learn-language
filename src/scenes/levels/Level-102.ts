@@ -1,11 +1,11 @@
 import BasicGameScene from "@/components/BasicGameScene";
-
+const KEY = "Level-102"
 export default class Level102 extends BasicGameScene {
   questions = this.russianAlphabets;
   currentQuestionIndex = 0;
-
+  static KEY = KEY
   constructor() {
-    super("Level-102");
+    super(KEY);
   }
 
 

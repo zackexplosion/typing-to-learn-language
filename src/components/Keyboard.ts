@@ -1,9 +1,5 @@
 import Phaser from 'phaser';
 
-type KeyBoardParams = {
-  handleKeyPress?: Function
-}
-
 // The constant variables
 const KEYS_PER_ROW = 11
 const FONT_SIZE_OFFSET = 5
@@ -12,22 +8,10 @@ const FONT_SIZE_OFFSET = 5
 const KEY_COLOR = 'green'
 const KEY_COLOR_DOWN = 'gray'
 
-// Layout the keyboard with the array
-const KEYS_LAYOUT = [
-  // 'йцукенгшщзхъ'.split(''),
-  // 'фывапролджэё'.split(''),
-  // '.ячсмитьбю..'.split(''),
-  'йцукенгшщзх'.split(''),
-  'фывапролджэ'.split(''),
-  'ячсмитьбюъё'.split(''),
-]
+import * as Russian from './keyboard-layouts/russian'
+import * as Arabic from './keyboard-layouts/arabic'
 
-// TODO
-// Maybe need another hash for uppercase too?
-// const KEYCODE_TO_RUSSIAN_LETTER_MAP:any = {81 : 'й',87 : 'ц',69 : 'у',82 : 'к',84 : 'е',89 : 'н',85 : 'г',73 : 'ш',79 : 'щ',80 : 'з',219 : 'х',221 : 'ъ',222 : 'э',186 : 'ж',76 : 'д',75 : 'л',74 : 'о',72 : 'р',71 : 'п',70 : 'а',68 : 'в',83 : 'ы',65 : 'ф',90 : 'я',88 : 'ч',67 : 'с',86 : 'м',66 : 'и',78 : 'т',77 : 'ь',188 : 'б',190 : 'ю',192 : 'ё'}
-const KEYCODE_TO_RUSSIAN_LETTER_MAP:any = {'KeyA' : 'ф','Backquote' : 'ё','KeyQ' : 'й','KeyW' : 'ц','KeyS' : 'ы','KeyX' : 'ч','KeyZ' : 'я','KeyC' : 'с','KeyD' : 'в','KeyE' : 'у','KeyR' : 'к','KeyF' : 'а','KeyV' : 'м','KeyB' : 'и','KeyG' : 'п','KeyT' : 'е','KeyY' : 'н','KeyH' : 'р','KeyN' : 'т','KeyM' : 'ь','KeyJ' : 'о','KeyU' : 'г','KeyI' : 'ш','KeyK' : 'л','Comma' : 'б','Period' : 'ю','KeyL' : 'д','KeyO' : 'щ','KeyP' : 'з','Semicolon' : 'ж','Quote' : 'э','BracketLeft' : 'х','BracketRight' : 'ъ'}
-
-export default class KeyBoard extends Phaser.GameObjects.Container {
+export default class KeyBoard_Basic extends Phaser.GameObjects.Container {
 
   // To storage the key instance, for the color change
   private keyboardInstanceKeys: any = []
@@ -35,9 +19,30 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
   public keyboardAxisY = 0
   constructor(
     scene: Phaser.Scene,
-    params?: KeyBoardParams
+    language: string
   ) {
     super(scene)
+
+    language = language.toLocaleLowerCase()
+
+    var keysLayout: any;
+    var keycodeToLetterMap: any;
+
+    var config
+
+    switch(language) {
+      case 'arabic':
+        config = Arabic
+        keysLayout = Arabic.KEYS_LAYOUT
+        keycodeToLetterMap = Arabic.KEYCODE_TO_LETTER_MAP
+      break;
+      default:
+      case 'russian':
+        config = Russian
+        keysLayout = Russian.KEYS_LAYOUT
+        keycodeToLetterMap = Russian.KEYCODE_TO_LETTER_MAP
+      break;
+    }
 
     // Will use for moving the keyboard to the bottom of screen.
     var keyboardHeight = 0
@@ -53,7 +58,7 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
     const buttonSize = baseWidth / KEYS_PER_ROW
 
     // Loop the keys layout
-    KEYS_LAYOUT.forEach( (_, row) => {
+    keysLayout.forEach( (_, row) => {
       _.forEach((__, col) => {
 
         // TODO
@@ -122,7 +127,7 @@ export default class KeyBoard extends Phaser.GameObjects.Container {
     // *
 
     const handleKeyEvent = (event: KeyboardEvent, cb: Function) => {
-      const letter:string = KEYCODE_TO_RUSSIAN_LETTER_MAP[event.code]
+      const letter:string = keycodeToLetterMap[event.code]
       const keyInstance = this.keyboardInstanceKeys[letter]
 
       if(keyInstance && letter) {

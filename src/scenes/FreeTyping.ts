@@ -1,8 +1,9 @@
 import BasicGameScene from '@/components/BasicGameScene';
-
+const KEY = "FreeTyping"
 export default class FreeTyping extends BasicGameScene {
+  static KEY = KEY
   constructor() {
-    super("FreeTyping");
+    super(KEY);
   }
 
   create() {
