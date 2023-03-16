@@ -5,4 +5,4 @@ export const KEYS_LAYOUT = [
   ' zxcvbnm '.split(''),
 ]
 
-export const KEYCODE_TO_LETTER_MAP:any = {'KeyA' : 'ф','Backquote' : 'ё','KeyQ' : 'й','KeyW' : 'ц','KeyS' : 'ы','KeyX' : 'ч','KeyZ' : 'я','KeyC' : 'с','KeyD' : 'в','KeyE' : 'у','KeyR' : 'к','KeyF' : 'а','KeyV' : 'м','KeyB' : 'и','KeyG' : 'п','KeyT' : 'е','KeyY' : 'н','KeyH' : 'р','KeyN' : 'т','KeyM' : 'ь','KeyJ' : 'о','KeyU' : 'г','KeyI' : 'ш','KeyK' : 'л','Comma' : 'б','Period' : 'ю','KeyL' : 'д','KeyO' : 'щ','KeyP' : 'з','Semicolon' : 'ж','Quote' : 'э','BracketLeft' : 'х','BracketRight' : 'ъ'}
+export const KEYCODE_TO_LETTER_MAP:any = {"KeyQ":"q","KeyW":"w","KeyE":"e","KeyR":"r","KeyT":"t","KeyY":"y","KeyU":"u","KeyI":"i","KeyO":"o","KeyP":"p","KeyA":"a","KeyS":"s","KeyD":"d","KeyF":"f","KeyG":"g","KeyH":"h","KeyJ":"j","KeyK":"k","KeyL":"l","Semicolon":"ñ","KeyZ":"z","KeyX":"x","KeyC":"c","KeyV":"v","KeyB":"b","KeyN":"n","KeyM":"m"}

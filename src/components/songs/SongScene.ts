@@ -22,7 +22,7 @@ export default class SongScene extends GameScene {
 
     // Remove symbols, line break ...etc non letters
     this.questions = _lyrics
-      .replace(/(\.|\!|\,|\-)/g, "")
+      .replace(/(\.|\!|\,|\-|\(|\))/g, "")
       // Remove more than one space.
       .replace(/\ +/g, " ")
       .split("\n")
