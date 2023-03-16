@@ -8,8 +8,9 @@ const FONT_SIZE_OFFSET = 1
 const KEY_COLOR = 'green'
 const KEY_COLOR_DOWN = 'gray'
 
-import * as Russian from './keyboard-layouts/russian'
-import * as Arabic from './keyboard-layouts/arabic'
+import * as Russian from './keyboard-layouts/Russian'
+import * as Arabic from './keyboard-layouts/Arabic'
+import * as Spanish from './keyboard-layouts/Spanish'
 
 export default class KeyBoard_Basic extends Phaser.GameObjects.Container {
 
@@ -35,6 +36,11 @@ export default class KeyBoard_Basic extends Phaser.GameObjects.Container {
         config = Arabic
         keysLayout = Arabic.KEYS_LAYOUT
         keycodeToLetterMap = Arabic.KEYCODE_TO_LETTER_MAP
+      break;
+      case 'spanish':
+        config = Spanish
+        keysLayout = Spanish.KEYS_LAYOUT
+        keycodeToLetterMap = Spanish.KEYCODE_TO_LETTER_MAP
       break;
       default:
       case 'russian':

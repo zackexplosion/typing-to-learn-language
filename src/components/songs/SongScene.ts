@@ -17,8 +17,8 @@ export default class SongScene extends GameScene {
 
   protected savingIndexKey;
 
-  constructor(KEY: string, _lyrics: string) {
-    super(KEY);
+  constructor(KEY: string, _lyrics: string, keyboardType: string) {
+    super(KEY, keyboardType);
 
     // Remove symbols, line break ...etc non letters
     this.questions = _lyrics
@@ -132,7 +132,7 @@ export default class SongScene extends GameScene {
     });
 
     this.emitter.on("currentLyricCompleted", (text: string) => {
-      console.log("text completed", text);
+      // console.log("text completed", text);
       this.currentQuestionIndex++;
       this.currentLyric.destroy();
       this.currentLyric = null;

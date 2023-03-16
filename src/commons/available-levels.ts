@@ -4,6 +4,7 @@ import Level101 from '@/scenes/levels/Level-101';
 import Level102 from '@/scenes/levels/Level-102';
 import SongsABC from '@/scenes/levels/songs/abc';
 import SongsYaSvoboden from '@/scenes/levels/songs/ya-svoboden';
+import SongsESDespacito from '@/scenes/levels/songs/es/Despacito';
 
 const scenes = [
   FreeTyping,
@@ -11,6 +12,7 @@ const scenes = [
   Level102,
   SongsABC,
   SongsYaSvoboden,
+  SongsESDespacito
   // FreeTyping_Arabic
 ]
 

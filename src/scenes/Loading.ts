@@ -124,6 +124,6 @@ export default class LoadingScene extends Phaser.Scene {
 
       this.scene.start(sceneToStart);
 
-    }, 1000)
+    }, 500)
   }
 }

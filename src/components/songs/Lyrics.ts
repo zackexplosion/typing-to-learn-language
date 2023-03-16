@@ -73,7 +73,6 @@ export default class Lyrics extends Phaser.GameObjects.Container {
     // console.log('scene.keyboard.keyboardAxisY', scene.keyboard.keyboardAxisY)
     const offsetBoundsY = -300
     const lyricBoundsY = scene.cameras.main.height
-    console.log('lyricBoundsY', lyricBoundsY)
     selfWithPhysics.body.setBoundsRectangle(new Phaser.Geom.Rectangle(0, offsetBoundsY, scene.cameras.main.width, lyricBoundsY))
     this.scene.add.existing(this)
   }

@@ -1,6 +1,6 @@
 import Phaser from "phaser";
 import russianAlphabets from "@/commons/russian-alphabets";
-import KeyBoard from "./KeyBoard";
+import KeyBoard from "./Keyboard";
 import { scenesKeys } from '@/commons/available-levels'
 
 
@@ -8,10 +8,12 @@ export default class GameScene extends Phaser.Scene {
   protected russianAlphabets = russianAlphabets
   protected letterSounds: LetterSounds = {}
   protected keyboard!: KeyBoard
+  protected keyboardType: string
   protected currentLevel: string = ''
-  constructor(name: string) {
+  constructor(name: string, keyboardType: string = 'Russian') {
     super(name);
     this.currentLevel = name
+    this.keyboardType = keyboardType
   }
 
   preload() {
@@ -31,7 +33,7 @@ export default class GameScene extends Phaser.Scene {
     }
 
     // Create the keyboard
-    this.keyboard = new KeyBoard(this, 'Russian');
+    this.keyboard = new KeyBoard(this, this.keyboardType);
 
     // this.add.text(5, 5, this.currentLevel, {color: '#333'})
 
