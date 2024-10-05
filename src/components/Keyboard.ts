@@ -9,10 +9,10 @@ const KEY_COLOR = 'green'
 const KEY_COLOR_DOWN = 'gray'
 
 import * as Russian from './keyboard-layouts/Russian'
-import * as Arabic from './keyboard-layouts/Arabic'
 import * as Spanish from './keyboard-layouts/Spanish'
+import * as ChineseBopomofo from './keyboard-layouts/ChineseBopomofo'
 
-export default class KeyBoard_Basic extends Phaser.GameObjects.Container {
+export default class KeyBoardBasic extends Phaser.GameObjects.Container {
 
   // To storage the key instance, for the color change
   private keyboardInstanceKeys: any = []
@@ -32,10 +32,10 @@ export default class KeyBoard_Basic extends Phaser.GameObjects.Container {
     var config
 
     switch(language) {
-      case 'arabic':
-        config = Arabic
-        keysLayout = Arabic.KEYS_LAYOUT
-        keycodeToLetterMap = Arabic.KEYCODE_TO_LETTER_MAP
+      case 'chinese-bopomofo':
+        config = ChineseBopomofo
+        keysLayout = ChineseBopomofo.KEYS_LAYOUT
+        keycodeToLetterMap = ChineseBopomofo.KEYCODE_TO_LETTER_MAP
       break;
       case 'spanish':
         config = Spanish

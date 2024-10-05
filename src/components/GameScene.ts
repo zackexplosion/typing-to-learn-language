@@ -6,7 +6,8 @@ import { scenesKeys } from '@/commons/available-levels'
 
 export default class GameScene extends Phaser.Scene {
   protected russianAlphabets = russianAlphabets
-  protected letterSounds: LetterSounds = {}
+  // protected letterSounds: LetterSounds = {}
+  protected letterSounds: any;
   protected keyboard!: KeyBoard
   protected keyboardType: string
   protected currentLevel: string = ''
@@ -26,11 +27,15 @@ export default class GameScene extends Phaser.Scene {
     if(localStorage) {
       localStorage.currentLevel = this.currentLevel
     }
+    var music = this.sound.addAudioSprite('russianAlphabet');
+    // for (let i = 0; i < russianAlphabets.length; i++) {
+    //   const _ = russianAlphabets[i];
+    //   this.letterSounds[_] = this.sound.add(_);
+    // }
 
-    for (let i = 0; i < russianAlphabets.length; i++) {
-      const _ = russianAlphabets[i];
-      this.letterSounds[_] = this.sound.add(_);
-    }
+    this.letterSounds = this.sound.addAudioSprite('russianAlphabet');
+
+    console.log('this.letterSounds', this.letterSounds)
 
     // Create the keyboard
     this.keyboard = new KeyBoard(this, this.keyboardType);

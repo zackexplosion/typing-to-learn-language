@@ -12,7 +12,7 @@ export default class FreeTyping extends BasicGameScene {
     // Setup the keyboard event
     this.keyboard.addPointerupHandler((key: string) => {
       this.questionObject?.setText(key)
-      this.letterSounds[key].play();
+      this.letterSounds.play(key);
     });
   }
 }

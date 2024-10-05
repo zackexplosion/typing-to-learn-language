@@ -23,10 +23,14 @@ export default class LoadingScene extends Phaser.Scene {
     new LoadingHelper(this)
 
     // Load the voice of letters
-    for (let i = 0; i < russianAlphabets.length; i++) {
-      const _ = russianAlphabets[i];
-      this.load.audio(_, `assets/sounds/letters/gen-${i + 6}.mp3`);
-    }
+    // for (let i = 0; i < russianAlphabets.length; i++) {
+    //   const _ = russianAlphabets[i];
+    //   this.load.audio(_, `assets/sounds/letters/gen-${i + 6}.mp3`);
+    // }
+
+    this.load.audioSprite('russianAlphabet', 'assets/voice/russian-alphabet/russian-alphabet.json',[
+      'assets/voice/russian-alphabet/russian-alphabet.mp3'
+    ]);
 
     this.load.atlas('flares', 'assets/particles/flares.png', 'assets/particles/flares.json');
 
