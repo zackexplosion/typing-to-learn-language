@@ -7,40 +7,38 @@ import { scenesKeys } from '@/commons/available-levels'
 export default class GameScene extends Phaser.Scene {
   protected russianAlphabets = russianAlphabets
   // protected letterSounds: LetterSounds = {}
-  protected letterSounds: any;
+  protected letterSounds: any = null
   protected keyboard!: KeyBoard
-  protected keyboardType: string
+  protected keyboardType: string = 'Russian'
   protected currentLevel: string = ''
-  constructor(name: string, keyboardType: string = 'Russian') {
+
+  constructor(name: string) {
     super(name);
     this.currentLevel = name
-    this.keyboardType = keyboardType
   }
 
   preload() {
 
   }
 
-  create () {
+  create (keyboardType: string = 'Russian') {
+
+    this.keyboardType = keyboardType
 
     // Set current level browser's local storage, use in Loading.ts. Makes easier to development lol
     if(localStorage) {
       localStorage.currentLevel = this.currentLevel
     }
-    var music = this.sound.addAudioSprite('russianAlphabet');
-    // for (let i = 0; i < russianAlphabets.length; i++) {
-    //   const _ = russianAlphabets[i];
-    //   this.letterSounds[_] = this.sound.add(_);
-    // }
 
-    this.letterSounds = this.sound.addAudioSprite('russianAlphabet');
 
-    console.log('this.letterSounds', this.letterSounds)
+    if(this.keyboardType.toLocaleLowerCase() === 'russian') { 
+      this.letterSounds = this.sound.addAudioSprite('russianAlphabet');
+    } else {
+      this.letterSounds = null
+    }
 
     // Create the keyboard
     this.keyboard = new KeyBoard(this, this.keyboardType);
-
-    // this.add.text(5, 5, this.currentLevel, {color: '#333'})
 
     // TODO
     // Find a better way to do this

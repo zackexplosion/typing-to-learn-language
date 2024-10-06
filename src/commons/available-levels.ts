@@ -17,7 +17,7 @@ const scenes = [
 ]
 
 
-var _scenesKeys:any = []
+var _scenesKeys:string[] = []
 
 scenes.forEach(_ => {
   const key = _['KEY']

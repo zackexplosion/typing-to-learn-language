@@ -26,7 +26,7 @@ export default class KeyBoardBasic extends Phaser.GameObjects.Container {
 
     language = language.toLocaleLowerCase()
 
-    var keysLayout: any;
+    var keysLayout: string[][];
     var keycodeToLetterMap: any;
 
     var config
@@ -34,21 +34,18 @@ export default class KeyBoardBasic extends Phaser.GameObjects.Container {
     switch(language) {
       case 'chinese-bopomofo':
         config = ChineseBopomofo
-        keysLayout = ChineseBopomofo.KEYS_LAYOUT
-        keycodeToLetterMap = ChineseBopomofo.KEYCODE_TO_LETTER_MAP
       break;
       case 'spanish':
         config = Spanish
-        keysLayout = Spanish.KEYS_LAYOUT
-        keycodeToLetterMap = Spanish.KEYCODE_TO_LETTER_MAP
       break;
       default:
       case 'russian':
         config = Russian
-        keysLayout = Russian.KEYS_LAYOUT
-        keycodeToLetterMap = Russian.KEYCODE_TO_LETTER_MAP
       break;
     }
+
+    keysLayout = config.KEYS_LAYOUT
+    keycodeToLetterMap = config.KEYCODE_TO_LETTER_MAP
 
     // Will use for moving the keyboard to the bottom of screen.
     var keyboardHeight = 0
@@ -63,8 +60,8 @@ export default class KeyBoardBasic extends Phaser.GameObjects.Container {
     // The virtual button size, won't show out for now.
     const buttonSize = baseWidth / KEYS_PER_ROW
     // Loop the keys layout
-    keysLayout.forEach( (_, row) => {
-      _.forEach((__, col) => {
+    keysLayout.forEach( (row, rowIndex) => {
+      row.forEach((col, colIndex) => {
 
         // TODO
         // Style
@@ -82,21 +79,21 @@ export default class KeyBoardBasic extends Phaser.GameObjects.Container {
 
 
         // The axis of keys
-        let x = col * buttonSize + (buttonSize / 2)
-        let y = (row * buttonSize) + (buttonSize / 2)
+        let x = colIndex * buttonSize + (buttonSize / 2)
+        let y = (rowIndex * buttonSize) + (buttonSize / 2)
 
         // keyboardHeight will be the last y axis
         keyboardHeight = y
 
         // Dot just for sorting, so skip it
-        if(__ === '.') return
+        if(col === '.') return
 
         const key =
-          scene.add.text(x, y, __, {font:`${fontSize}px PT Mono`, color: KEY_COLOR})
+          scene.add.text(x, y, col, {font:`${fontSize}px PT Mono`, color: KEY_COLOR})
           .setOrigin(0.5)
           .setInteractive({ useHandCursor: true })
           .on('pointerdown', () => {
-            this.pointerupHandler(__)
+            this.pointerupHandler(col)
             key.setStyle({color: KEY_COLOR_DOWN})
           })
           .on('pointerup', () => {
@@ -106,7 +103,7 @@ export default class KeyBoardBasic extends Phaser.GameObjects.Container {
             key.setStyle({color: KEY_COLOR})
           })
 
-        this.keyboardInstanceKeys[__] = key
+        this.keyboardInstanceKeys[col] = key
 
         this.add(key)
       })
@@ -138,25 +135,24 @@ export default class KeyBoardBasic extends Phaser.GameObjects.Container {
       if(keyInstance && letter) {
         cb(letter, keyInstance)
       }
+      // cb(letter, keyInstance)
     }
 
-    // var logger = '' // Only use for create the keymap in the top lol
+    // var logger = '' // Only use for create the key map in the top lol
 
-    scene.input.keyboard.on('keydown',  (event: any) => handleKeyEvent(event, (letter: string, key: Phaser.GameObjects.Text) => {
+    scene.input.keyboard.on('keydown',  (event: KeyboardEvent) => handleKeyEvent(event, (letter: string, key: Phaser.GameObjects.Text) => {
 
       // logger += `'${event.code}' : '${event.key}',`
+      // console.log(logger)
+      key.setStyle({color: KEY_COLOR_DOWN})
+    }));
 
+    scene.input.keyboard.on('keyup',  (event: KeyboardEvent) => handleKeyEvent(event, (letter: string, key: Phaser.GameObjects.Text) => {
       try {
         this.pointerupHandler(letter)
       } catch (error) {
         console.error(error)
       }
-      key.setStyle({color: KEY_COLOR_DOWN})
-
-      // console.log(logger)
-    }));
-
-    scene.input.keyboard.on('keyup',  (event: any) => handleKeyEvent(event, (letter: string, key: Phaser.GameObjects.Text) => {
       key.setStyle({color: KEY_COLOR})
     }));
   }
